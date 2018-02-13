@@ -1,0 +1,296 @@
+.vertical-offset-200{
+    padding-top:200px;
+}
+
+.navbar-inverse {
+	background-color: #4D5B66;
+}
+
+span.title,.navbar-inverse .navbar-brand {
+	text-shadow: 0 1px 1px #000;
+	color: #FFF;
+	font-weight: bold;
+}
+
+.container-fluid {
+	position: absolute;
+	top: 70px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.container-fluid-no-banner {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.table {
+    width: 100%;
+    /*margin-bottom: 20px;*/
+    margin-bottom: 0px;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+    line-height: 1.428571429;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+.table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
+}
+
+.layout-table > td, th {
+    padding: 8px;
+}
+
+.layout-table > thead > tr > th,
+.layout-table > tbody > tr > th,
+.layout-table > tfoot > tr > th,
+.layout-table > thead > tr > td,
+.layout-table > tbody > tr > td,
+.layout-table > tfoot > tr > td {
+    padding: 0px;
+    line-height: 1.428571429;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+/* Styling for index.html */
+
+.gallery_image {
+    float: right;
+    padding-right: 10px;
+}
+
+.index_header {
+    text-align: center;
+    padding: 22px 0 10px 0;
+    font-size: 25px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+}
+
+.index_button {
+    float: right;
+    display: inline-block;
+    position: relative;
+    padding: 26px 20px 0 0;
+}
+
+.index_button button {
+    color: #fff;
+    background-color: #10759D;
+    border-color: #10759D;
+    font-weight: 300;
+    font-size: 14px;
+    padding: 3px 6px 3px 6px;
+    border-radius: 3px;
+}
+
+.index_button button {
+    outline: none;
+}
+
+.index_outside_navbar {
+    background-color: #fafafa;
+    height: 100%
+}
+
+.index_body {
+    width: 100%;
+    padding: 10px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border: 2px solid #f4f4f4;
+    border-top: none;
+    overflow: hidden;
+    position: relative;
+}
+
+.index_body_side {
+    width: 45%;
+    font-size: 16px;
+    padding: 10px 0 10px 40px;
+    display: inline-block;
+}
+
+.index_body_side ul {
+    padding-left: 10px;
+    margin-left: 10px;
+}
+
+.index_body_side_specs {
+    padding-top: 5px;
+}
+
+.specs_instance {
+    padding-top: 15px;
+    font-size: 16px;
+}
+
+.specs_instance_def {
+    color: #10759D;
+}
+
+.screenshot {
+    float: right;
+    max-width: 52%;
+    height: 100%;
+    margin: 20px 10px 20px 0;
+}
+
+/* Image zoom from -> https://codepen.io/ongtiffany/pen/BoOeQV */
+
+a.zoombox img {
+    box-shadow: 0px 0px 8px rgba(0,0,0,.3);
+    display: block;
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+    border: 1px solid #f4f4f4;
+}
+
+/* Styles the zoombox, removes it from sight and adds the fade-in transition */
+
+.zoombox-target {
+    position: fixed;
+    top: -100%;
+    width: 100%;
+    background: rgba(0,0,0,.7);
+    width: 100%;
+    opacity: 0;
+    -webkit-transition: opacity .5s ease-in-out;
+    -moz-transition: opacity .5s ease-in-out;
+    -o-transition: opacity .5s ease-in-out;
+    transition: opacity .5s ease-in-out;
+    overflow: hidden;
+}
+
+/* Styles the zoombox image, centers it vertically and horizontally, adds the zoom-in transition and makes it responsive using a combination of margin and absolute positioning */
+
+.zoombox-target img {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left:0;
+    right:0;
+    bottom: 0;
+    max-height: 0%;
+    max-width: 0%;
+    border: 3px solid white;
+    box-shadow: 0px 0px 8px rgba(0,0,0,.3);
+    box-sizing: border-box;
+    -webkit-transition: .5s ease-in-out;
+    -moz-transition: .5s ease-in-out;
+    -o-transition: .5s ease-in-out;
+    transition: .5s ease-in-out;
+}
+
+/* Styles the close link, adds the slide down transition */
+
+a.zoombox-close {
+    display: block;
+    width:50px;
+    height:50px;
+    box-sizing: border-box;
+    background: white;
+    color: black;
+    text-decoration: none;
+    position: absolute;
+    top: -80px;
+    right: 0;
+    -webkit-transition: .5s ease-in-out;
+    -moz-transition: .5s ease-in-out;
+    -o-transition: .5s ease-in-out;
+    transition: .5s ease-in-out;
+}
+
+/* Provides part of the "X" to eliminate an image from the close link */
+
+a.zoombox-close:before {
+    content: "";
+    display: block;
+    height: 30px;
+    width: 1px;
+    background: black;
+    position: absolute;
+    left: 26px;
+    top:10px;
+    -webkit-transform:rotate(45deg);
+    -moz-transform:rotate(45deg);
+    -o-transform:rotate(45deg);
+    transform:rotate(45deg);
+}
+
+/* Provides part of the "X" to eliminate an image from the close link */
+
+a.zoombox-close:after {
+    content: "";
+    display: block;
+    height: 30px;
+    width: 1px;
+    background: black;
+    position: absolute;
+    left: 26px;
+    top:10px;
+    -webkit-transform:rotate(-45deg);
+    -moz-transform:rotate(-45deg);
+    -o-transform:rotate(-45deg);
+    transform:rotate(-45deg);
+}
+
+/* Uses the :target pseudo-class to perform the animations upon clicking the .lightbox-target anchor */
+
+.zoombox-target:target {
+    opacity: 1;
+    top: 0;
+    bottom: 0;
+}
+
+.zoombox-target:target img {
+    max-height: 95%;
+    max-width: 95%;
+}
+
+.zoombox-target:target a.zoombox-close {
+    top: 0px;
+}
+
+.navbar_index {
+    background-color: #fafafa;
+    border-bottom: 2px solid #f4f4f4;
+    border-radius: 0;
+    height: 80px;
+    position: relative;
+    margin-bottom: 0;
+    overflow: hidden;
+}
+
+.navbar_index .navbar_index-text {
+    padding-right: 15px;
+    font-weight: normal;
+    margin: 0;
+}
+
+.navbar_index .navbar_index-text:last-child {
+    padding: 0;
+}
+
+.navbar_index img {
+    height: 70px;
+    padding: 10px 10px 0 18px;
+    float: left;
+}
+
+#patientBanner {
+    display: none;
+}
