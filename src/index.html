@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Bilirubin</title>
-		<link rel="stylesheet" href="libs/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-		<link rel="stylesheet" href="app.css">
-		<script src="libs/xdate.js"></script>
-		<script src="libs/jquery-2.1.4/jquery.min.js"></script>
-		<script src="libs/highcharts/highcharts.js"></script>
-		<script src="libs/highcharts/highcharts-more.js"></script>
+    <head>
+        <title>Bilirubin</title>
+        <link rel="stylesheet" href="libs/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="app.css">
+        <script src="libs/xdate.js"></script>
+        <script src="libs/jquery-2.1.4/jquery.min.js"></script>
+        <script src="libs/highcharts/highcharts.js"></script>
+        <script src="libs/highcharts/highcharts-more.js"></script>
         <script src="libs/fhir-client/fhir-client.js"></script>
-	</head>
-	<body>
-		<header id="patientBanner" class="navbar navbar-inverse navbar-static-top" role="navigation">
-			<p class="navbar-brand"><span class="glyphicon glyphicon-user"></span><span id="patientName"></span></p>
-			<p class="navbar-text">sex <span id="patientSex" class="title"></span></p>
-			<p class="navbar-text">dob <span id="patientDOB" class="title"></span></p>
-			<p class="navbar-text">age <span id="patientAge" class="title"></span></p>
-		</header>
-		<div id="main">
-			<div class="row" style="height: 100%">
-				<div id="chartContainer" class="col-xs-6" style="height: 100%"></div>
-				<div class="col-xs-6">
+    </head>
+    <body>
+        <header id="patientBanner" class="navbar navbar-inverse navbar-static-top" role="navigation">
+            <p class="navbar-brand"><span class="glyphicon glyphicon-user"></span><span id="patientName"></span></p>
+            <p class="navbar-text">sex <span id="patientSex" class="title"></span></p>
+            <p class="navbar-text">dob <span id="patientDOB" class="title"></span></p>
+            <p class="navbar-text">age <span id="patientAge" class="title"></span></p>
+        </header>
+        <div id="main">
+            <div class="row" style="height: 100%">
+                <div id="chartContainer" class="col-xs-6" style="height: 100%"></div>
+                <div class="col-xs-6">
                     <table id="dataTable" class="table table-striped">
-						<tr>
-							<th>Date/Time</th>
-							<th>Result (mg/dL) </th>
-							<th>Age (Hrs)</th>
-							<th>Value:Test</th>
-							<th>Risk Zone</th>
-						</tr>
+                        <tr>
+                            <th>Date/Time</th>
+                            <th>Result (mg/dL) </th>
+                            <th>Age (Hrs)</th>
+                            <th>Value:Test</th>
+                            <th>Risk Zone</th>
+                        </tr>
                     </table>
-				</div>
-			</div>
-		</div>
+                </div>
+            </div>
+        </div>
         <script src="app.js"></script>
     </body>
 </html>

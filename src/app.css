@@ -3,21 +3,21 @@
 }
 
 .navbar-inverse {
-	background-color: #4D5B66;
+    background-color: #4D5B66;
 }
 
 span.title,.navbar-inverse .navbar-brand {
-	text-shadow: 0 1px 1px #000;
-	color: #FFF;
-	font-weight: bold;
+    text-shadow: 0 1px 1px #000;
+    color: #FFF;
+    font-weight: bold;
 }
 
 .container-fluid {
-	position: absolute;
-	top: 70px;
-	right: 0;
-	bottom: 0;
-	left: 0;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 .container-fluid-no-banner {
