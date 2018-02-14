@@ -1,3 +1,9 @@
+let state = {
+    patient: {},
+    showPatientBanner: false,
+    bilirubin: [],
+}
+
 const risks = {
 	highRiskLowerLimit: (hours) => (
 		      0.0000000001087380116978890 * Math.pow(hours, 6)
@@ -91,19 +97,6 @@ const filter = {
         }
         return user
       },
-    textOrNumber: (input, fractionSize) => {
-        if (isNaN(input)) {
-            return input
-        } else {
-            return input.toFixed(fractionSize)
-        }
-      },
-}
-
-let state = {
-    patient: {},
-    showPatientBanner: false,
-    bilirubin: [],
 }
 
 function hours (observation, dob) {
@@ -111,25 +104,13 @@ function hours (observation, dob) {
     return (hours > 1000 || hours < -1000) ? "-----" : hours
 }
 
-function risk(bilirubinResult, ageInHours) {
+function risk (bilirubinResult, ageInHours) {
         if ((bilirubinResult > 20)) return 'Critical Risk Zone'
         else if (bilirubinResult >= risks.highRiskLowerLimit(ageInHours)) return 'High Risk Zone (>95%)'
         else if (bilirubinResult >= risks.highIntermediateLowerLimit(ageInHours)) return 'High Intermediate Risk Zone (75-95%)'
         else if (bilirubinResult >= risks.lowIntermediateLowerLimit(ageInHours)) return 'Low Intermediate Risk Zone (40-74%)'
         else return 'Low Risk Zone (<40%)'
 }
-
-let criticalRiskZone = []
-let highRiskZone = []
-let highIntermediateRiskZone = []
-let lowIntermediateRiskZone = []
-let lowRiskZone = []
-
-for (let i = 0; i <= 120; i++) criticalRiskZone.push([i, 20, 25])
-for (let i = 0; i <= 120; i++) highRiskZone.push([i, risks.highRiskLowerLimit(i), 20])
-for (let i = 0; i <= 120; i++) highIntermediateRiskZone.push([i, risks.highIntermediateLowerLimit(i), risks.highRiskLowerLimit(i)])
-for (let i = 0; i <= 120; i++) lowIntermediateRiskZone.push([i, risks.lowIntermediateLowerLimit(i), risks.highIntermediateLowerLimit(i)])
-for (let i = 0; i <= 120; i++) lowRiskZone.push([i, 0, risks.lowIntermediateLowerLimit(i)])
 
 function validateDate (date) {
     let newDate = new Date(date)
@@ -154,8 +135,8 @@ function queryPatient (smart) {
             }
             // if dob wasn't set by the extension
             if (state.patient.dob === undefined) state.patient.dob = patient.birthDate
-            state.patient.dob = new Date(state.patient.dob);
 
+            state.patient.dob = new Date(state.patient.dob)
             state.patient.sex = patient.gender
             state.patient.id  = patient.id
             deferred.resolve()
@@ -197,17 +178,182 @@ function queryBilirubinData (smart) {
     return deferred
 }
 
-let chartConfig
-let smart
+function constructChart () {
+    let criticalRiskZone = []
+    let highRiskZone = []
+    let highIntermediateRiskZone = []
+    let lowIntermediateRiskZone = []
+    let lowRiskZone = []
+    
+    for (let i = 0; i <= 120; i++) criticalRiskZone.push([i, 20, 25])
+    for (let i = 0; i <= 120; i++) highRiskZone.push([i, risks.highRiskLowerLimit(i), 20])
+    for (let i = 0; i <= 120; i++) highIntermediateRiskZone.push([i, risks.highIntermediateLowerLimit(i), risks.highRiskLowerLimit(i)])
+    for (let i = 0; i <= 120; i++) lowIntermediateRiskZone.push([i, risks.lowIntermediateLowerLimit(i), risks.highIntermediateLowerLimit(i)])
+    for (let i = 0; i <= 120; i++) lowRiskZone.push([i, 0, risks.lowIntermediateLowerLimit(i)])
 
-function display () {
+    let chartOptions = {
+        "tooltip": {
+            "crosshairs": true,
+            "valueDecimals": 2,
+            "headerFormat": "<span style=\"font-size: 10px\">{point.key:.2f}</span><br/>"
+        },
+        "legend": {
+            "enabled": false
+        }
+    }
+    let chartData = {
+        options: {
+            tooltip: {
+                crosshairs: true,
+                valueDecimals: 2,
+                headerFormat: '<span style="font-size: 10px">{point.key:.2f}</span><br/>'
+            },
+            legend: {
+                enabled: false
+            }
+        },
+        xAxis: {
+            minPadding: 0,
+            maxPadding: 0,
+            gridLineWidth: 1,
+            tickInterval: 24,
+            title: {
+                text: 'Postnatal Age (hours)'
+            }
+        },
+        yAxis: {
+            minPadding: 0,
+            maxPadding: 0,
+            title: {
+                text: 'Serum Bilirubin (mg/dl)'
+            },
+            plotLines: [
+                {
+                    value: 24,
+                    color: 'transparent',
+                    width: 1,
+                    label: {
+                        text: 'Critical Risk Zone',
+                        align: 'center',
+                        style: {
+                            color: 'black'
+                        }
+                    }
+                },
+                {
+                    value: 19,
+                    color: 'transparent',
+                    width: 1,
+                    label: {
+                        text: 'High Risk Zone (>95%)',
+                        align: 'center',
+                        style: {
+                            color: 'black'
+                        }
+                    }
+                },
+                {
+                    value: 13,
+                    color: 'transparent',
+                    width: 1,
+                    label: {
+                        text: 'High Intermediate Risk Zone (75-95%)',
+                        align: 'center',
+                        rotation: -25,
+                        style: {
+                            color: 'black'
+                        }
+                    }
+                },
+                {
+                    value: 10.75,
+                    color: 'transparent',
+                    width: 1,
+                    label: {
+                        text: 'Low Intermediate Risk Zone (40-74%)',
+                        align: 'center',
+                        rotation: -20,
+                        style: {
+                            color: 'black'
+                        }
+                    }
+                },
+                {
+                    value: 0.5,
+                    color: 'transparent',
+                    width: 1,
+                    label: {
+                        text: 'Low Risk Zone',
+                        align: 'center',
+                        style: {
+                            color: 'black'
+                        }
+                    }
+                }
+            ]
+        },
+        plotOptions: {
+            series: {
+                fillOpacity: 0.75
+            }
+        },
+        series: [
+            {
+                name: 'Critical Risk Zone',
+                data: criticalRiskZone,
+                color: '#FF0000',
+                type: 'arearange'
+            },
+            {
+                name: 'High Risk Zone (>95%)',
+                data: highRiskZone,
+                color: '#FF8040',
+                type: 'arearange'
+            },
+            {
+                name: 'High Intermediate Risk Zone (75-95%)',
+                data: highIntermediateRiskZone,
+                color: '#FFFF00',
+                type: 'arearange'
+            },
+            {
+                name: 'Low Intermediate Risk Zone (40-74%)',
+                data: lowIntermediateRiskZone,
+                color: '#00FF00',
+                type: 'arearange'
+            },
+            {
+                name: 'Low Risk Zone (<40%)',
+                data: lowRiskZone,
+                color: '#f7f7f7',
+                type: 'arearange'
+            },
+            {
+                name: 'Bilirubin',
+                data: state.bilirubin,
+                color: '#0077FF',
+                type: 'line'
+            }
+        ],
+        title: {
+            text: 'Hour Specific Bilirubin Risk Chart for Term & Near-Term Infants with NO Additional Risk Factors'
+        },
+        credits: {
+            enabled: false
+        }
+    }
+    return {chartOptions: chartOptions, chartData: chartData}
+}
+
+function display (chart) {
     if (state.showPatientBanner) $('#patientBanner').show()
     $('#patientName').text(state.patient.name)
     $('#patientSex').text(state.patient.sex)
     $('#patientDOB').text(filter.date(state.patient.dob.toISOString(), "dd MMM yyyy HH:mm"))
     $('#patientAge').text(filter.age(state.patient.dob))
     $('#main').addClass(state.showPatientBanner ? 'container-fluid' : 'container-fluid-no-banner')
-    Highcharts.chart('chartContainer', chartConfig)
+    Highcharts.setOptions(chart.chartOptions)
+    Highcharts.chart('chartContainer', chart.chartData)
     state.values.forEach((value) => {
         let html = "<tr><td><div class='form-group' style='width: 125px'>"
         html += filter.date(value["effectiveDateTime"].toISOString(), "MM/dd/yyyy HH:mm")
@@ -222,157 +368,13 @@ function display () {
         html += "</td></tr>"
         $('#dataTable').append(html)
     })
-
 }
 
-FHIR.oauth2.ready((client) => {
-    smart = client;
+FHIR.oauth2.ready((smart) => {
     state.showPatientBanner = !(smart.tokenResponse.need_patient_banner === false)
-    
     queryPatient(smart).done(() => {
         queryBilirubinData(smart).done(() => {
-            chartConfig = {
-                options: {
-                    tooltip: {
-                        crosshairs: true,
-                        valueDecimals: 2,
-                        headerFormat: '<span style="font-size: 10px">{point.key:.2f}</span><br/>'
-                    },
-                    legend: {
-                        enabled: false
-                    }
-                },
-                xAxis: {
-                    minPadding: 0,
-                    maxPadding: 0,
-                    gridLineWidth: 1,
-                    tickInterval: 24,
-                    title: {
-                        text: 'Postnatal Age (hours)'
-                    }
-                },
-                yAxis: {
-                    minPadding: 0,
-                    maxPadding: 0,
-                    title: {
-                        text: 'Serum Bilirubin (mg/dl)'
-                    },
-                    plotLines: [
-                        {
-                            value: 24,
-                            color: 'transparent',
-                            width: 1,
-                            label: {
-                                text: 'Critical Risk Zone',
-                                align: 'center',
-                                style: {
-                                    color: 'black'
-                                }
-                            }
-                        },
-                        {
-                            value: 19,
-                            color: 'transparent',
-                            width: 1,
-                            label: {
-                                text: 'High Risk Zone (>95%)',
-                                align: 'center',
-                                style: {
-                                    color: 'black'
-                                }
-                            }
-                        },
-                        {
-                            value: 13,
-                            color: 'transparent',
-                            width: 1,
-                            label: {
-                                text: 'High Intermediate Risk Zone (75-95%)',
-                                align: 'center',
-                                rotation: -25,
-                                style: {
-                                    color: 'black'
-                                }
-                            }
-                        },
-                        {
-                            value: 10.75,
-                            color: 'transparent',
-                            width: 1,
-                            label: {
-                                text: 'Low Intermediate Risk Zone (40-74%)',
-                                align: 'center',
-                                rotation: -20,
-                                style: {
-                                    color: 'black'
-                                }
-                            }
-                        },
-                        {
-                            value: 0.5,
-                            color: 'transparent',
-                            width: 1,
-                            label: {
-                                text: 'Low Risk Zone',
-                                align: 'center',
-                                style: {
-                                    color: 'black'
-                                }
-                            }
-                        }
-                    ]
-                },
-                plotOptions: {
-                    series: {
-                        fillOpacity: 0.35
-                    }
-                },
-                series: [
-                    {
-                        name: 'Critical Risk Zone',
-                        data: criticalRiskZone,
-                        color: '#FF0000',
-                        type: 'arearange'
-                    },
-                    {
-                        name: 'High Risk Zone (>95%)',
-                        data: highRiskZone,
-                        color: '#FF8040',
-                        type: 'arearange'
-                    },
-                    {
-                        name: 'High Intermediate Risk Zone (75-95%)',
-                        data: highIntermediateRiskZone,
-                        color: '#FFFF00',
-                        type: 'arearange'
-                    },
-                    {
-                        name: 'Low Intermediate Risk Zone (40-74%)',
-                        data: lowIntermediateRiskZone,
-                        color: '#00FF00',
-                        type: 'arearange'
-                    },
-                    {
-                        name: 'Low Risk Zone (<40%)',
-                        data: lowRiskZone,
-                        color: '#f7f7f7',
-                        type: 'arearange'
-                    },
-                    {
-                        name: 'Bilirubin',
-                        data: state.bilirubin,
-                        color: '#0077FF',
-                        type: 'line'
-                    }
-                ],
-                title: {
-                    text: 'Hour Specific Bilirubin Risk Chart for Term & Near-Term Infants with NO Additional Risk Factors'
-                },
-                credits: {
-                    enabled: false
-                }
-            }
-            display ()
+            display(constructChart())
         })
     })
 })

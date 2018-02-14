@@ -1,7 +1,7 @@
 {
   "name": "bilirubin-risk-chart",
   "description": "Bilirubin Risk Chart",
-  "version": "1.2.22",
+  "version": "0.0.4",
   "scripts": {
     "start": "./node_modules/http-server/bin/http-server src -p 8000 -c-1"
   },
@@ -9,5 +9,5 @@
     "http-server": "^0.10.0"
   },
   "license": "Apache-2.0",
-  "repository": "https://github.com/nschwertner/bilirubin"
+  "repository": "https://github.com/nschwertner/bilirubin-risk-chart-simplified"
 }

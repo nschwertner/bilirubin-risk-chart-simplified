@@ -1,0 +1,69 @@
+.vertical-offset-200{
+    padding-top:200px;
+}
+
+.navbar-inverse {
+	background-color: #4D5B66;
+}
+
+span.title,.navbar-inverse .navbar-brand {
+	text-shadow: 0 1px 1px #000;
+	color: #FFF;
+	font-weight: bold;
+}
+
+.container-fluid {
+	position: absolute;
+	top: 70px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.container-fluid-no-banner {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.table {
+    width: 100%;
+    /*margin-bottom: 20px;*/
+    margin-bottom: 0px;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+    line-height: 1.428571429;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+.table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
+}
+
+.layout-table > td, th {
+    padding: 8px;
+}
+
+.layout-table > thead > tr > th,
+.layout-table > tbody > tr > th,
+.layout-table > tfoot > tr > th,
+.layout-table > thead > tr > td,
+.layout-table > tbody > tr > td,
+.layout-table > tfoot > tr > td {
+    padding: 0px;
+    line-height: 1.428571429;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+#patientBanner {
+    display: none;
+}
